@@ -1,0 +1,4 @@
+[[session]]
+name = "Chezmoi"
+path = "~/.local/share/chezmoi"
+startup_command = "tmux split-window -l 20 && nvim ~/.local/share/chezmoi"
