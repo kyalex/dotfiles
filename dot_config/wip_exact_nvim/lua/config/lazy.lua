@@ -17,6 +17,3 @@ require("lazy").setup({
 	checker = { enabled = true },
 })
 
-require("lualine")
-require("bufferline")
-require("ibl")
