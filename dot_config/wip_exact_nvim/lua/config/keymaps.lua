@@ -49,3 +49,19 @@ map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
 
 -- Lazygit
 map("n", "<leader>gb", lazygit.blame_line, { desc = "Git Blame Line" })
+map("n", "<leader>gg", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
+
+-- Neotree
+map("n", "<leader>e", "<cmd>Neotree<cr>", { desc = "Open Neotree" })
+
+-- Which key
+map(
+  "n",
+  "<leader>?",
+  function()
+    require("which-key").show({ global = false })
+  end,
+  {
+    desc = "Buffer Local Keymaps (which-key)",
+  }
+)
