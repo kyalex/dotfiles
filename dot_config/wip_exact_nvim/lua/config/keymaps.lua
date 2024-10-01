@@ -1,15 +1,15 @@
 local map = vim.keymap.set
 
-local telescope = require('telescope.builtin')
-local buffer = require('utils.buffer')
-local lazygit = require('utils.lazygit')
+local telescope = require("telescope.builtin")
+local buffer = require("utils.buffer")
+local lazygit = require("utils.lazygit")
 
 -- Telescope
-map('n', '<leader> ', telescope.find_files, { desc = 'Telescope find files' })
-map('n', '<leader>/', telescope.live_grep, { desc = 'Telescope live grep' })
-map('n', '<leader>,', telescope.buffers, { desc = 'Telescope buffers' })
+map("n", "<leader> ", telescope.find_files, { desc = "Telescope find files" })
+map("n", "<leader>/", telescope.live_grep, { desc = "Telescope live grep" })
+map("n", "<leader>,", telescope.buffers, { desc = "Telescope buffers" })
 
--- better up/down
+-- Better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
@@ -27,7 +27,7 @@ map("n", "<C-Down>", "<cmd>resize -10<cr>", { desc = "Decrease Window Height" })
 map("n", "<C-Left>", "<cmd>vertical resize -10<cr>", { desc = "Decrease Window Width" })
 map("n", "<C-Right>", "<cmd>vertical resize +10<cr>", { desc = "Increase Window Width" })
 
--- buffers
+-- Buffers
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "<leader>bd", buffer.remove, { desc = "Delete Buffer" })
@@ -36,17 +36,16 @@ map("n", "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", { desc = "Delete Other 
 -- Clear search with <esc>
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
 
--- save file
+-- Save file
 map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
 
--- better indenting
+-- Better indenting
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
--- windows
+-- Windows
 map("n", "<leader>w", "<c-w>", { desc = "Windows", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
 
 -- Lazygit
 map("n", "<leader>gb", lazygit.blame_line, { desc = "Git Blame Line" })
-

@@ -23,7 +23,9 @@ vim.opt.relativenumber = true
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-vim.opt.clipboard = 'unnamed,unnamedplus'
+-- Clipboard
+vim.opt.clipboard = "unnamed,unnamedplus"
+
 vim.opt.signcolumn = "yes"
 vim.opt.cursorline = true
 vim.opt.list = true
