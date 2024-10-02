@@ -3,11 +3,19 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Suppress messagesin command line
+-- W: "written" message
+-- I: Startup info messages
+-- c and C: completion messages
 vim.opt.shortmess:append({ W = true, I = true, c = true, C = true })
 
+-- Number of spaces tabs count for
 vim.opt.tabstop = 2
+-- Size of an indent
 vim.opt.shiftwidth = 2
+-- Use spaces instead of tabs
 vim.opt.expandtab = true
+-- Number of spaces tabs count for
 vim.bo.softtabstop = 2
 
 -- Save undo history to a file
