@@ -1,11 +1,7 @@
--- bootstrap lazy.nvim, LazyVim and your plugins
-require("config.lazy")
-require("telescope").setup({
-  defaults = {
-    file_ignore_patterns = {
-      "node_modules",
-    },
-  },
-})
+-- Options should be loaded before Lazy since they set leader keybindings
+require("config.options")
 
-vim.opt.clipboard = "unnamedplus"
+require("config.lazy")
+require("config.autocmds")
+require("config.keymaps")
+
