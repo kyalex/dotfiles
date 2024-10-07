@@ -34,6 +34,9 @@ vim.g.loaded_netrwPlugin = 1
 -- Clipboard
 vim.opt.clipboard = "unnamed,unnamedplus"
 
+-- Additional info column before line numbers
 vim.opt.signcolumn = "yes"
+-- Highlight current line
 vim.opt.cursorline = true
+-- Show invisible characters
 vim.opt.list = true

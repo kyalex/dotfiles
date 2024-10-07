@@ -12,16 +12,16 @@ local cmp = require("cmp")
 
 cmp.setup({
   sources = {
-    { name = 'copilot' },
-    { name = 'nvim_lsp' },
-    { name = 'buffer' },
-    { name = 'path' },
+    { name = "copilot" },
+    { name = "nvim_lsp" },
+    { name = "buffer" },
+    { name = "path" },
   },
   window = {
     completion = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ["<CR>"] = cmp.mapping.confirm({ select = true }),
   }),
 })
 
