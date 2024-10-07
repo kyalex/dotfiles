@@ -40,3 +40,8 @@ vim.opt.signcolumn = "yes"
 vim.opt.cursorline = true
 -- Show invisible characters
 vim.opt.list = true
+
+-- Hightlight jbuilder files as ruby
+vim.cmd([[
+  au BufNewFile,BufRead *.jbuilder,Dangerfile set ft=ruby
+]])
