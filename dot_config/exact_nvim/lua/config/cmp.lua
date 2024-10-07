@@ -9,7 +9,31 @@ require("copilot_cmp").setup()
 
 -- CMP
 local cmp = require("cmp")
+local lspconfig = require("lspconfig")
 
+-- Mason
+require("mason").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = { "ruby_lsp" }
+})
+
+-- Setup LSP
+lspconfig.ruby_lsp.setup {
+  cmd = { "bundle", "exec", "ruby-lsp" },
+  filetypes = { "ruby" },
+  root_dir = lspconfig.util.root_pattern("Gemfile", ".git", "."),
+  settings = {
+    ruby_lsp = {
+      enabledFeatures = {
+        "formatting", -- Enable LSP formatting
+        "diagnostics", -- Enable diagnostics
+        "codeActions", -- Enable code actions
+      },
+    },
+  },
+}
+
+-- Autocompletion for /
 cmp.setup.cmdline("/", {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
@@ -17,6 +41,7 @@ cmp.setup.cmdline("/", {
   }
 })
 
+-- Autocompletion for :
 cmp.setup.cmdline(":", {
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
@@ -32,7 +57,13 @@ cmp.setup.cmdline(":", {
   })
 })
 
+-- CMP setup
 cmp.setup({
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
   sources = {
     { name = "copilot" },
     { name = "nvim_lsp" },
@@ -49,3 +80,9 @@ cmp.setup({
   }),
 })
 
+-- Attach nvim-cmp capabilities to ruby-lsp
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+lspconfig.ruby_lsp.setup {
+  capabilities = capabilities,
+}
