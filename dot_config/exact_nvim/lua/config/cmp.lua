@@ -14,10 +14,10 @@ local lspconfig = require("lspconfig")
 -- Mason
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = { "ruby_lsp" }
+  ensure_installed = { "ruby_lsp", "ts_ls" }
 })
 
--- Setup LSP
+-- Setup Ruby LSP
 lspconfig.ruby_lsp.setup {
   cmd = { "bundle", "exec", "ruby-lsp" },
   filetypes = { "ruby" },
@@ -31,6 +31,19 @@ lspconfig.ruby_lsp.setup {
       },
     },
   },
+}
+
+-- Setup JS LSP
+lspconfig.ts_ls.setup {
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+  },
+  cmd = { "typescript-language-server", "--stdio" },
+  root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
+  settings = { documentFormatting = false }, -- Disable formatting
 }
 
 -- Autocompletion for /
@@ -80,9 +93,8 @@ cmp.setup({
   }),
 })
 
--- Attach nvim-cmp capabilities to ruby-lsp
+-- Attach nvim-cmp capabilities
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-lspconfig.ruby_lsp.setup {
-  capabilities = capabilities,
-}
+lspconfig.ruby_lsp.setup { capabilities = capabilities }
+lspconfig.ts_ls.setup { capabilities = capabilities }
