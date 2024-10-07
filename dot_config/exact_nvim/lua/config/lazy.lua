@@ -17,3 +17,5 @@ require("lazy").setup({
 	checker = { enabled = true },
 })
 
+-- Load configs
+require("config.cmp")
