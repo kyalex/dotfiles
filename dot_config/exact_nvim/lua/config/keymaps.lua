@@ -65,3 +65,7 @@ map(
     desc = "Buffer Local Keymaps (which-key)",
   }
 )
+
+-- Go to definition keymaps
+map("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
+map("n", "gD", vim.lsp.buf.declaration, { desc = "Go to Declaration" })
