@@ -8,7 +8,7 @@ local lazygit = require("utils.lazygit")
 map("n", "<leader> ", telescope.find_files, { desc = "Telescope find files" })
 map("n", "<leader>/", telescope.live_grep, { desc = "Telescope live grep" })
 map("n", "<leader>,", telescope.buffers, { desc = "Telescope buffers" })
-map("n", "<leader>fo", telescope.oldfiles, { desc = "Telescope Old files" })
+map("n", "<leader>fr", telescope.oldfiles, { desc = "Telescope Old files" })
 
 -- Better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
