@@ -14,7 +14,7 @@ local lspconfig = require("lspconfig")
 -- Mason
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = { "ruby_lsp", "ts_ls" }
+  ensure_installed = { "ruby_lsp", "ts_ls", "eslint" }
 })
 
 -- Setup Ruby LSP
@@ -43,8 +43,9 @@ lspconfig.ts_ls.setup {
   },
   cmd = { "typescript-language-server", "--stdio" },
   root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
-  settings = { documentFormatting = false }, -- Disable formatting
 }
+
+require("lspconfig").eslint.setup{}
 
 -- Autocompletion for /
 cmp.setup.cmdline("/", {
