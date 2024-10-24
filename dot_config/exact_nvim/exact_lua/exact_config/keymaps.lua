@@ -1,14 +1,7 @@
 local map = vim.keymap.set
 
-local telescope = require("telescope.builtin")
 local buffer = require("utils.buffer")
 local lazygit = require("utils.lazygit")
-
--- Telescope
-map("n", "<leader> ", telescope.find_files, { desc = "Telescope find files" })
-map("n", "<leader>/", telescope.live_grep, { desc = "Telescope live grep" })
-map("n", "<leader>,", telescope.buffers, { desc = "Telescope buffers" })
-map("n", "<leader>fr", telescope.oldfiles, { desc = "Telescope Old files" })
 
 -- Better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
@@ -70,3 +63,6 @@ map(
 -- Go to definition keymaps
 map("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
 map("n", "gD", vim.lsp.buf.declaration, { desc = "Go to Declaration" })
+
+-- Utils
+map("n", "<leader>uqc", "<cmd>cexpr []<cr>", { desc = "Clear quick list" })

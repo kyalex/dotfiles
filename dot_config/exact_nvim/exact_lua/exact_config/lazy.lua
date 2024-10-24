@@ -20,4 +20,3 @@ require("lazy").setup({
 -- Load configs
 require("config.cmp")
 require("config.nvim-dev-icons")
-require("config.telescope")
