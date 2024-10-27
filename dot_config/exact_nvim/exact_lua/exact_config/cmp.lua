@@ -47,6 +47,35 @@ lspconfig.ts_ls.setup {
 
 require("lspconfig").eslint.setup{}
 
+-- Setup LSP from Lua
+lspconfig.lua_ls.setup {
+  on_init = function(client)
+    if client.workspace_folders then
+      local path = client.workspace_folders[1].name
+      if vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc") then
+        return
+      end
+    end
+
+    client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+      runtime = {
+        version = "LuaJIT"
+      },
+      -- Make the server aware of Neovim runtime files
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME,
+          "${3rd}/luv/library" -- vim.uv support
+        }
+      }
+    })
+  end,
+  settings = {
+    Lua = {}
+  }
+}
+
 -- Autocompletion for /
 cmp.setup.cmdline("/", {
   mapping = cmp.mapping.preset.cmdline(),
@@ -75,7 +104,7 @@ cmp.setup.cmdline(":", {
 cmp.setup({
   snippet = {
     expand = function(args)
-      require('luasnip').lsp_expand(args.body)
+      require("luasnip").lsp_expand(args.body)
     end,
   },
   sources = {
@@ -95,7 +124,7 @@ cmp.setup({
 })
 
 -- Attach nvim-cmp capabilities
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 lspconfig.ruby_lsp.setup { capabilities = capabilities }
 lspconfig.ts_ls.setup { capabilities = capabilities }

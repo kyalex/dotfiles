@@ -1,4 +1,4 @@
-function ruby_icon(name)
+local function ruby_icon(name)
   return {
     icon = "",
     color = "#701516",
