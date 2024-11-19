@@ -25,3 +25,6 @@ esac
 # fzf
 source <(fzf --zsh)
 
+# Open Obsidian in Nvim
+
+alias obs="nvim ~/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents"

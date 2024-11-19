@@ -1,4 +1,9 @@
 [[session]]
 name = "Chezmoi"
 path = "~/.local/share/chezmoi"
-startup_command = "tmux split-window -l 20 && nvim ~/.local/share/chezmoi"
+startup_command = "nvim ~/.local/share/chezmoi"
+
+[[session]]
+name = "Obsidian"
+path = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents"
+startup_command = "nvim ."
