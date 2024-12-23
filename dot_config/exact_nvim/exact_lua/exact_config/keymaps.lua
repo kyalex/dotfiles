@@ -54,3 +54,4 @@ map("n", "gD", vim.lsp.buf.declaration, { desc = "Go to Declaration" })
 
 -- Utils
 map("n", "<leader>uqc", "<cmd>cexpr []<cr>", { desc = "Clear quick list" })
+map("n", "<leader>uct", "<cmd>Copilot toggle<cr>", { desc = "Toggle Copilot" })
