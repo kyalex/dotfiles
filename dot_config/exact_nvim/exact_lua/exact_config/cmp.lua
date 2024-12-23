@@ -150,4 +150,5 @@ vim.diagnostic.config({
 vim.keymap.set("n", "<leader>ld", vim.diagnostic.open_float, { desc = "Show diagnostics in a float" })
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
+vim.keymap.set("n", "<leader>lc", vim.lsp.buf.code_action, { desc = "Code Actions" })
 
