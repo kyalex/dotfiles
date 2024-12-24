@@ -14,7 +14,12 @@ local lspconfig = require("lspconfig")
 -- Mason
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = { "ruby_lsp", "ts_ls", "eslint" }
+  ensure_installed = {
+    "ruby_lsp",
+    "ts_ls",
+    "eslint",
+    "zls"
+  }
 })
 
 -- Setup Ruby LSP
@@ -75,6 +80,8 @@ lspconfig.lua_ls.setup {
     Lua = {}
   }
 }
+
+lspconfig.zls.setup{}
 
 -- Autocompletion for /
 cmp.setup.cmdline("/", {
