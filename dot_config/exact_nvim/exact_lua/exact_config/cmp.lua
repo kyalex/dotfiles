@@ -81,6 +81,7 @@ lspconfig.lua_ls.setup {
   }
 }
 
+-- Zig LSP
 lspconfig.zls.setup{}
 
 -- Autocompletion for /
