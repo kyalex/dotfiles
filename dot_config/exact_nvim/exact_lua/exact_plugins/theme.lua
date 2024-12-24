@@ -15,6 +15,8 @@ return {
 
     require("nvim-web-devicons").setup({
       override = {
+        ["jbuilder.tt"] = ruby_icon("jbuilder"),
+        ["rb.tt"] = ruby_icon("ruby"),
         jbuilder = ruby_icon("jbuilder"),
         Gemfile = ruby_icon("Gemfile"),
         Dangerfile = ruby_icon("Dangerfile"),
