@@ -1,4 +1,4 @@
 [tools]
 node = "22"
-ruby = "3.4.0-preview2"
+ruby = "3.4.2"
 zig = "latest"
