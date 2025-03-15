@@ -1,15 +1,12 @@
 initial-command = /bin/zsh -l -i -c "tmux new-session -A -s main"
 command         = /bin/zsh -l -i -c "tmux new-session -A -s main"
 
-auto-update = off
-
-theme = catppuccin-latte
+theme = 3024 Night
 
 confirm-close-surface   = false
 mouse-hide-while-typing = true
 window-colorspace       = display-p3
 
-font-family       = TX-02
 font-style-italic = Regular
 font-size         = 16
 font-thicken      = true
