@@ -24,5 +24,6 @@
     "light": "One Dark Pro",
     "dark": "One Dark"
   },
-  "vim_mode": true
+  "vim_mode": true,
+  "buffer_font_family": "Hack Nerd Font Mono"
 }

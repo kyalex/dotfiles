@@ -1,4 +1,5 @@
 [tools]
 node = "22"
+pnpm = "10.4.1"
 ruby = "3.4.2"
 zig = "latest"
