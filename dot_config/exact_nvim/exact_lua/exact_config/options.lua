@@ -43,5 +43,5 @@ vim.opt.list = true
 
 -- Hightlight jbuilder files as ruby
 vim.cmd([[
-  au BufNewFile,BufRead *.jbuilder,Dangerfile set ft=ruby
+  au BufNewFile,BufRead *.jbuilder,Dangerfile,Brewfile set ft=ruby
 ]])

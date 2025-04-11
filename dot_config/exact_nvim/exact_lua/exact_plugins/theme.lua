@@ -20,6 +20,7 @@ return {
         jbuilder = ruby_icon("jbuilder"),
         Gemfile = ruby_icon("Gemfile"),
         Dangerfile = ruby_icon("Dangerfile"),
+        Brewfile = ruby_icon("Brewfile"),
       }
     })
 
