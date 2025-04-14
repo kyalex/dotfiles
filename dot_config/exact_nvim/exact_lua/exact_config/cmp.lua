@@ -140,7 +140,9 @@ lspconfig.ts_ls.setup { capabilities = capabilities }
 -- Diagnostic
 
 vim.diagnostic.config({
-  virtual_lines = true,
+  virtual_lines = {
+    current_line = true
+  },
   signs = true,  -- Show signs in the sign column
   underline = true, -- Underline the diagnostic text
   severity_sort = true, -- Sort diagnostics by severity
