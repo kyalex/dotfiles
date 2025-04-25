@@ -140,7 +140,10 @@ lspconfig.ts_ls.setup { capabilities = capabilities }
 -- Diagnostic
 
 vim.diagnostic.config({
-  virtual_lines = true,
+  virtual_text = {
+    prefix = "●", -- Change prefix for diagnostic messages
+    spacing = 4,  -- Add spacing between diagnostic and text
+  },
   signs = true,  -- Show signs in the sign column
   underline = true, -- Underline the diagnostic text
   severity_sort = true, -- Sort diagnostics by severity
