@@ -13,6 +13,9 @@ return {
           array = lang_utils.set_preset_for_list({
             join = {
               space_in_brackets = false,
+            },
+            split = {
+              last_separator = false,
             }
           })
         }
