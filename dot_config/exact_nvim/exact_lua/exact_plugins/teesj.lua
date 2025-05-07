@@ -8,6 +8,7 @@ return {
 
     tsj.setup({
       use_default_keymaps = false,
+      max_join_length = 2048,
       langs = {
         ruby = {
           array = lang_utils.set_preset_for_list({
