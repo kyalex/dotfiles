@@ -4,3 +4,6 @@ pnpm = "10.4.1"
 ruby = "3.4.2"
 rust = "latest"
 zig = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = []
