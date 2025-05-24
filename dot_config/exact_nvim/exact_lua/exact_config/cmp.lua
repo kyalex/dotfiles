@@ -15,6 +15,7 @@ local lspconfig = require("lspconfig")
 require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = {
+    "tailwindcss",
     "ruby_lsp",
     "ts_ls",
     "eslint",
@@ -33,6 +34,13 @@ lspconfig.ruby_lsp.setup {
         "formatting", -- Enable LSP formatting
         "diagnostics", -- Enable diagnostics
         "codeActions", -- Enable code actions
+      },
+    },
+  },
+  init_options = {
+    addonSettings = {
+      ["Ruby LSP Rails"] = {
+        enablePendingMigrationsPrompt = false,
       },
     },
   },
@@ -83,6 +91,28 @@ lspconfig.lua_ls.setup {
 
 -- Zig LSP
 lspconfig.zls.setup{}
+
+-- Tailwind CSS LSP
+lspconfig.tailwindcss.setup({
+  filetypes = { "ruby", "eruby", "slim" },
+  settings = {
+    tailwindCSS = {
+      includeLanguages = {
+        ruby = "erb",
+      },
+      experimental = {
+        classRegex = {
+          [[class= "([^"]*)]],
+          [[class: "([^"]*)]],
+          [[class= '([^"]*)]],
+          [[class: '([^"]*)]],
+          '~H""".*class="([^"]*)".*"""',
+          '~F""".*class="([^"]*)".*"""',
+        },
+      }
+    }
+  }
+})
 
 -- Autocompletion for /
 cmp.setup.cmdline("/", {
@@ -136,6 +166,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 lspconfig.ruby_lsp.setup { capabilities = capabilities }
 lspconfig.ts_ls.setup { capabilities = capabilities }
+lspconfig.tailwindcss.setup { capabilities = capabilities }
 
 -- Diagnostic
 
