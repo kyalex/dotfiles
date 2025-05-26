@@ -36,3 +36,14 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     vim.bo.filetype = "bash"
   end,
 })
+
+-- Ensure Tailwind LSP works correctly with Ruby files
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "ruby", "eruby", "slim", "html.erb" },
+  callback = function()
+    -- Force attach Tailwind LSP to these filetypes
+    if vim.fn.executable("tailwindcss-language-server") == 1 then
+      vim.cmd("LspStart tailwindcss")
+    end
+  end,
+})

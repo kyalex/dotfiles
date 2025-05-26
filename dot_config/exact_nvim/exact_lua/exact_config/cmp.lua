@@ -93,8 +93,13 @@ lspconfig.lua_ls.setup {
 lspconfig.zls.setup{}
 
 -- Tailwind CSS LSP
-lspconfig.tailwindcss.setup({
-  filetypes = { "ruby", "eruby", "slim" },
+lspconfig.tailwindcss.setup {
+  filetypes = {
+    "html",
+    "ruby",
+    "eruby",
+    "slim",
+  },
   settings = {
     tailwindCSS = {
       includeLanguages = {
@@ -111,8 +116,8 @@ lspconfig.tailwindcss.setup({
         },
       }
     }
-  }
-})
+  },
+}
 
 -- Autocompletion for /
 cmp.setup.cmdline("/", {
