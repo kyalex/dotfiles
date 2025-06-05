@@ -47,3 +47,16 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     end
   end,
 })
+
+-- Slim
+vim.filetype.add({
+  extension = {
+    slim = "slim",
+  },
+})
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "slim",
+  callback = function()
+    vim.diagnostic.enable(false)
+  end,
+})

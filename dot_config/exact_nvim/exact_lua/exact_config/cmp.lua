@@ -26,7 +26,7 @@ require("mason-lspconfig").setup({
 -- Setup Ruby LSP
 lspconfig.ruby_lsp.setup {
   cmd = { "bundle", "exec", "ruby-lsp" },
-  filetypes = { "ruby" },
+  filetypes = { "ruby", "slim" },
   root_dir = lspconfig.util.root_pattern("Gemfile", ".git", "."),
   settings = {
     ruby_lsp = {
