@@ -47,6 +47,8 @@ map("n", "<leader>gg", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
 
 -- Neotree
 map("n", "<leader>e", "<cmd>Neotree<cr>", { desc = "Open Neotree" })
+-- Oil
+map("n", "<BS>", "<cmd>Oil<cr>", { desc = "Open Oil" })
 
 -- Go to definition keymaps
 map("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
