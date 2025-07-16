@@ -13,6 +13,8 @@ style = "Italic"
 family = "Hack Nerd Font Mono"
 style = "Regular"
 
-[shell]
+[terminal]
+
+[terminal.shell]
 args = ["-l", "-i", "-c", "tmux new-session -A -s main"]
 program = "/bin/zsh"
