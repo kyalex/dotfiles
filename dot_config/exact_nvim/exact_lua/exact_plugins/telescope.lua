@@ -6,14 +6,17 @@ return {
     local builtin = require("telescope.builtin")
     local actions = require("telescope.actions")
 
+    local keybindings = {
+      ["<C-q>"] = actions.send_to_qflist,
+      ["<C-e>"] = actions.send_selected_to_qflist,
+    }
+
     telescope.setup({
       defaults = {
         file_ignore_patterns = { ".git/", "node_modules/" },
         mappings = {
-          i = {
-            ["<C-q>"] = actions.send_to_qflist,
-            ["<C-e>"] = actions.send_selected_to_qflist,
-          },
+          i = keybindings,
+          n = keybindings,
         },
       },
       extensions = {
