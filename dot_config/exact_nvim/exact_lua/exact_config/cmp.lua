@@ -1,16 +1,7 @@
--- Copilot
-require("copilot").setup({
-  suggestion = { enabled = false },
-  panel = { enabled = false },
-})
-
--- Copilot completion
 require("copilot_cmp").setup()
 
 -- CMP
 local cmp = require("cmp")
-local lspconfig = require("lspconfig")
-
 -- Mason
 require("mason").setup()
 require("mason-lspconfig").setup({
@@ -23,11 +14,14 @@ require("mason-lspconfig").setup({
   }
 })
 
+-- Attach nvim-cmp capabilities
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
 -- Setup Ruby LSP
-lspconfig.ruby_lsp.setup {
-  cmd = { "bundle", "exec", "ruby-lsp" },
+vim.lsp.config.ruby_lsp = {
+  cmd = { "ruby-lsp" },
   filetypes = { "ruby", "slim" },
-  root_dir = lspconfig.util.root_pattern("Gemfile", ".git", "."),
+  root_markers = { "Gemfile", ".git", "." },
   settings = {
     ruby_lsp = {
       enabledFeatures = {
@@ -37,17 +31,11 @@ lspconfig.ruby_lsp.setup {
       },
     },
   },
-  init_options = {
-    addonSettings = {
-      ["Ruby LSP Rails"] = {
-        enablePendingMigrationsPrompt = false,
-      },
-    },
-  },
+  capabilities = capabilities,
 }
 
 -- Setup JS LSP
-lspconfig.ts_ls.setup {
+vim.lsp.config.ts_ls = {
   filetypes = {
     "javascript",
     "javascriptreact",
@@ -55,13 +43,17 @@ lspconfig.ts_ls.setup {
     "typescriptreact",
   },
   cmd = { "typescript-language-server", "--stdio" },
-  root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
+  root_markers = { "package.json", "tsconfig.json", ".git" },
+  capabilities = capabilities,
 }
 
-require("lspconfig").eslint.setup{}
+-- Setup ESLint
+vim.lsp.config.eslint = {
+  capabilities = capabilities,
+}
 
 -- Setup LSP from Lua
-lspconfig.lua_ls.setup {
+vim.lsp.config.lua_ls = {
   on_init = function(client)
     if client.workspace_folders then
       local path = client.workspace_folders[1].name
@@ -86,14 +78,17 @@ lspconfig.lua_ls.setup {
   end,
   settings = {
     Lua = {}
-  }
+  },
+  capabilities = capabilities,
 }
 
 -- Zig LSP
-lspconfig.zls.setup{}
+vim.lsp.config.zls = {
+  capabilities = capabilities,
+}
 
 -- Tailwind CSS LSP
-lspconfig.tailwindcss.setup {
+vim.lsp.config.tailwindcss = {
   filetypes = {
     "html",
     "ruby",
@@ -117,7 +112,11 @@ lspconfig.tailwindcss.setup {
       }
     }
   },
+  capabilities = capabilities,
 }
+
+-- Enable LSP servers
+vim.lsp.enable({ "ruby_lsp", "ts_ls", "eslint", "lua_ls", "zls", "tailwindcss" })
 
 -- Autocompletion for /
 cmp.setup.cmdline("/", {
@@ -165,13 +164,6 @@ cmp.setup({
     ["<S-Tab>"] = cmp.mapping.select_prev_item(),
   }),
 })
-
--- Attach nvim-cmp capabilities
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-lspconfig.ruby_lsp.setup { capabilities = capabilities }
-lspconfig.ts_ls.setup { capabilities = capabilities }
-lspconfig.tailwindcss.setup { capabilities = capabilities }
 
 -- Diagnostic
 

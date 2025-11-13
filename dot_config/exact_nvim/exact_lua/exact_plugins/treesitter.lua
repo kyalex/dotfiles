@@ -15,6 +15,8 @@ return {
         "markdown",
         "markdown_inline",
         "javascript",
+        "typescript",
+        "tsx",
         "sql",
         "yaml",
         "html"
