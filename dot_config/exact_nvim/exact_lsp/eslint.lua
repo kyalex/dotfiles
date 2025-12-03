@@ -32,7 +32,7 @@ return {
     packageManager = nil,
     useESLintClass = false,
     experimental = {
-      useFlatConfig = false,
+      useFlatConfig = true,
     },
     codeActionOnSave = {
       enable = false,
@@ -47,7 +47,7 @@ return {
       shortenToSingleLine = false,
     },
     nodePath = '',
-    workingDirectory = { mode = 'location' },
+    workingDirectory = { mode = 'auto' },
     codeAction = {
       disableRuleComment = {
         enable = true,
@@ -58,4 +58,13 @@ return {
       },
     },
   },
+  before_init = function(params, config)
+    local root = params.rootUri or params.rootPath
+    if not root then return end
+
+    config.settings.workspaceFolder = {
+      uri = root,
+      name = vim.fn.fnamemodify(vim.uri_to_fname(root), ":t"),
+    }
+  end,
 }

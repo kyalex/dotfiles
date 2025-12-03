@@ -2,7 +2,7 @@ return {
   cmd = {
     "mise", "exec", "--", "ruby-lsp"
   },
-  filetypes = { "ruby", "slim" },
+  filetypes = { "ruby", "eruby", "slim" },
   init_options = {
     addonSettings = {
       ["Ruby LSP Rails"] = {
@@ -10,5 +10,4 @@ return {
       },
     },
   },
-  root_markers = { "Gemfile", ".git", "." },
 }
