@@ -28,3 +28,15 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.diagnostic.enable(false)
   end,
 })
+
+-- Helm
+vim.filetype.add({
+  extension = {
+    gotmpl = 'gotmpl',
+  },
+  pattern = {
+    [".*/templates/.*%.tpl"] = "helm",
+    [".*/templates/.*%.ya?ml"] = "helm",
+    ["helmfile.*%.ya?ml"] = "helm",
+  },
+})
