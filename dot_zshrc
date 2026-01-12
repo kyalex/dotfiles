@@ -27,3 +27,6 @@ alias obs="nvim ~/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents"
 
 # Mise
 eval "$(/opt/homebrew/bin/mise activate zsh)"
+
+# OP
+alias claude_op="ANTHROPIC_API_KEY=$(op read "op://Personal/h6sicja25locqz3za2f6rwdwhy/credential") claude"
