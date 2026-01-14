@@ -6,6 +6,9 @@ plugins=(git rails)
 
 source $ZSH/oh-my-zsh.sh
 
+# Scripts path
+export PATH="$HOME/.local/bin:$PATH"
+
 # VS Code
 code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
 

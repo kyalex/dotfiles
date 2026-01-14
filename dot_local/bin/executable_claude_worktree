@@ -1,0 +1,106 @@
+#!/bin/bash
+
+# Script to create a new tmux window with a git worktree and run claude
+
+set -e
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
+CYAN='\033[0;36m'
+BOLD='\033[1m'
+DIM='\033[2m'
+NC='\033[0m' # No Color
+
+# Get the repo root and name
+REPO_ROOT=$(git rev-parse --show-toplevel)
+REPO_NAME=$(basename "$REPO_ROOT")
+PARENT_DIR=$(dirname "$REPO_ROOT")
+
+echo -e "${BOLD}${CYAN}󰘬 Git Worktree + Claude${NC}\n"
+
+# Build list of options: "Create new" first, then existing worktrees
+OPTIONS="  [Create new worktree]"
+
+# Add existing worktrees (excluding the main one)
+WORKTREES=$(git worktree list --porcelain | grep "^worktree " | cut -d' ' -f2- | grep -v "^$REPO_ROOT$" || true)
+if [ -n "$WORKTREES" ]; then
+    while IFS= read -r wt; do
+        BRANCH=$(git -C "$wt" branch --show-current 2>/dev/null || basename "$wt")
+        OPTIONS="$OPTIONS"$'\n'"  $BRANCH  $wt"
+    done <<< "$WORKTREES"
+fi
+
+# Use fzf to select
+SELECTION=$(echo "$OPTIONS" | fzf \
+    --height=50% \
+    --reverse \
+    --ansi \
+    --header="Select an option:" \
+    --header-first \
+    --prompt="  " \
+    --pointer="▶" \
+    --color="header:cyan,pointer:magenta,prompt:blue,fg+:white:bold,bg+:black" \
+    --border=rounded \
+    --margin=1 \
+    --padding=1)
+
+if [ -z "$SELECTION" ]; then
+    echo -e "${YELLOW}No selection made${NC}"
+    exit 0
+fi
+
+if [[ "$SELECTION" == *"[Create new"* ]]; then
+    # Prompt for new branch name
+    echo -e "${BLUE}${BOLD}Enter new branch name:${NC}"
+    read -p "  " BRANCH_NAME
+
+    if [ -z "$BRANCH_NAME" ]; then
+        echo -e "${RED}✗ Error: Branch name cannot be empty${NC}"
+        exit 1
+    fi
+
+    WORKTREE_PATH="$PARENT_DIR/${REPO_NAME}-${BRANCH_NAME}"
+
+    if [ -d "$WORKTREE_PATH" ]; then
+        echo -e "${RED}✗ Error: Directory already exists at ${WORKTREE_PATH}${NC}"
+        exit 1
+    fi
+
+    # Check if branch exists
+    if git show-ref --verify --quiet "refs/heads/$BRANCH_NAME"; then
+        echo -e "${YELLOW}󰘬 Creating worktree from existing branch '${BRANCH_NAME}'...${NC}"
+        git worktree add "$WORKTREE_PATH" "$BRANCH_NAME"
+    else
+        echo -e "${GREEN}󰘬 Creating worktree with new branch '${BRANCH_NAME}'...${NC}"
+        git worktree add -b "$BRANCH_NAME" "$WORKTREE_PATH"
+    fi
+    echo -e "${GREEN}✓ Worktree created at ${DIM}${WORKTREE_PATH}${NC}"
+
+else
+    # Existing worktree selected
+    BRANCH_NAME=$(echo "$SELECTION" | sed 's/.*  //' | sed 's/  .*//')
+    WORKTREE_PATH=$(echo "$SELECTION" | sed 's/.*  //')
+    echo -e "${CYAN}󰏋 Using existing worktree${NC}"
+fi
+
+# Create new tmux window with split panes
+WINDOW_NAME="claude-${BRANCH_NAME}"
+tmux new-window -n "$WINDOW_NAME" -c "$WORKTREE_PATH"
+
+# Top pane: neovim
+tmux send-keys -t "$WINDOW_NAME" "nvim" Enter
+
+# Bottom pane: claude_op
+tmux split-window -t "$WINDOW_NAME" -v -c "$WORKTREE_PATH"
+tmux send-keys -t "$WINDOW_NAME" "claude_op" Enter
+
+# Focus on bottom pane (claude)
+tmux select-pane -t "$WINDOW_NAME.1"
+
+echo -e "\n${BOLD}${GREEN}✓ Created tmux window ${MAGENTA}'${WINDOW_NAME}'${NC}"
+echo -e "${DIM}  Top: nvim | Bottom: claude_op${NC}"
+echo -e "${DIM}  ${WORKTREE_PATH}${NC}"
