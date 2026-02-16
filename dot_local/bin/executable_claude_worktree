@@ -94,13 +94,13 @@ tmux new-window -n "$WINDOW_NAME" -c "$WORKTREE_PATH"
 # Top pane: neovim
 tmux send-keys -t "$WINDOW_NAME" "nvim" Enter
 
-# Bottom pane: claude_op
+# Bottom pane: claude
 tmux split-window -t "$WINDOW_NAME" -v -c "$WORKTREE_PATH"
-tmux send-keys -t "$WINDOW_NAME" "claude_op" Enter
+tmux send-keys -t "$WINDOW_NAME" "claude" Enter
 
 # Focus on bottom pane (claude)
 tmux select-pane -t "$WINDOW_NAME.1"
 
 echo -e "\n${BOLD}${GREEN}✓ Created tmux window ${MAGENTA}'${WINDOW_NAME}'${NC}"
-echo -e "${DIM}  Top: nvim | Bottom: claude_op${NC}"
+echo -e "${DIM}  Top: nvim | Bottom: claude${NC}"
 echo -e "${DIM}  ${WORKTREE_PATH}${NC}"
