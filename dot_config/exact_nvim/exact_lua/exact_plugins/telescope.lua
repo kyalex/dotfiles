@@ -3,7 +3,7 @@ return {
   dependencies = {
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" }
   },
-  tag = "0.1.8",
+  tag = "0.2.1",
   config = function()
     local telescope = require("telescope")
     local builtin = require("telescope.builtin")
@@ -20,6 +20,15 @@ return {
         mappings = {
           i = keybindings,
           n = keybindings,
+        },
+      },
+      pickers = {
+        buffers = {
+          mappings = {
+            n = {
+              ["dd"] = actions.delete_buffer,
+            },
+          },
         },
       },
       extensions = {
