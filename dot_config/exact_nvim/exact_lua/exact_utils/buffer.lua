@@ -42,4 +42,13 @@ function M.remove(buf)
   end
 end
 
+function M.remove_others()
+  local current = vim.api.nvim_get_current_buf()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if buf ~= current and vim.fn.buflisted(buf) == 1 then
+      M.remove(buf)
+    end
+  end
+end
+
 return M

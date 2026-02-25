@@ -25,7 +25,7 @@ map("n", "<C-Right>", "<cmd>vertical resize +10<cr>", { desc = "Increase Window 
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "<leader>bd", buffer.remove, { desc = "Delete Buffer" })
-map("n", "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", { desc = "Delete Other Buffers" })
+map("n", "<leader>bo", buffer.remove_others, { desc = "Delete Other Buffers" })
 
 -- Clear search with <esc>
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
