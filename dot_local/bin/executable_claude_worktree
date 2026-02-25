@@ -80,6 +80,17 @@ if [[ "$SELECTION" == *"[Create new"* ]]; then
     fi
     echo -e "${GREEN}✓ Worktree created at ${DIM}${WORKTREE_PATH}${NC}"
 
+    # Copy .claude settings from the main repo to the new worktree
+    if [ -d "$REPO_ROOT/.claude" ]; then
+        mkdir -p "$WORKTREE_PATH/.claude"
+        for item in settings.local.json commands; do
+            if [ -e "$REPO_ROOT/.claude/$item" ]; then
+                cp -r "$REPO_ROOT/.claude/$item" "$WORKTREE_PATH/.claude/$item"
+                echo -e "${DIM}  Copied .claude/${item}${NC}"
+            fi
+        done
+    fi
+
 else
     # Existing worktree selected
     BRANCH_NAME=$(echo "$SELECTION" | sed 's/.*  //' | sed 's/  .*//')
