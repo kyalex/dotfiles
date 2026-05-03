@@ -1,0 +1,5 @@
+projects = [
+  { path = "~/work/*", display_depth = 2 },
+  { path = "~/personal/*", display_depth = 2 },
+  { path = "~/.local/share/chezmoi" },
+]
