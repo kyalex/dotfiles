@@ -6,7 +6,7 @@
 if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -qi dark; then
   bg=#282c34 fg=#abb2bf accent=#61afef green=#98c379 yellow=#e5c07b inactive=#5c6370 border=#3e4451
 else
-  bg=#fafafa fg=#383a42 accent=#4078f2 green=#50a14f yellow=#c18401 inactive=#a0a1a7 border=#e5e5e6
+  bg=#eeeeee fg=#383a42 accent=#4078f2 green=#50a14f yellow=#c18401 inactive=#a0a1a7 border=#e5e5e6
 fi
 
 tmux set-environment -g STATUS_BG       "$bg"
