@@ -33,3 +33,15 @@ eval "$(/opt/homebrew/bin/mise activate zsh)"
 
 # OP
 claude_op () { ANTHROPIC_API_KEY=$(op read "op://Personal/h6sicja25locqz3za2f6rwdwhy/credential") claude }
+
+# lazygit: layer a light theme override on top of the default config when
+# macOS is in light mode. Leaves the dark default untouched.
+lazygit () {
+  local base="$HOME/Library/Application Support/lazygit/config.yml"
+  local light="$HOME/Library/Application Support/lazygit/config-light.yml"
+  if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -qi dark; then
+    command lazygit "$@"
+  else
+    LG_CONFIG_FILE="$base,$light" command lazygit "$@"
+  fi
+}
