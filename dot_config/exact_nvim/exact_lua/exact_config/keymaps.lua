@@ -43,7 +43,7 @@ map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
 
 -- Lazygit
 map("n", "<leader>gb", lazygit.blame_line, { desc = "Git Blame Line" })
-map("n", "<leader>gg", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
+map("n", "<leader>gg", lazygit.open, { desc = "LazyGit" })
 
 -- Neotree
 map("n", "<leader>e", "<cmd>Neotree<cr>", { desc = "Open Neotree" })
