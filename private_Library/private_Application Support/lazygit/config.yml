@@ -1,4 +1,6 @@
 gui:
+  showFileTree: true
+  showCommandLog: false
   nerdFontsVersion: "3"
   theme:
     activeBorderColor:
@@ -25,3 +27,23 @@ gui:
       - "#db4b4b"
     defaultFgColor:
       - "#c0caf5"
+
+os:
+  edit: 'nvim --server /tmp/current-neovim-server --remote-send ":e {{filename}}<CR>" 2>/dev/null || nvim {{filename}}'
+
+promptToReturnFromSubprocess: false
+quitOnTopLevelReturn: true
+
+git:
+  pagers:
+    - pager: |
+        delta --syntax-theme "$(
+          defaults read -g AppleInterfaceStyle 2>/dev/null \
+            | grep -qi dark && echo 'OneHalfDark' || echo 'OneHalfLight'
+        )" --paging=never --line-numbers \
+          --line-numbers-left-format="" \
+          --line-numbers-right-format="{np:^4}│ " \
+          --hyperlinks \
+          --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+  autoFetch: false
+  autoRefresh: false
