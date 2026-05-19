@@ -30,6 +30,7 @@ brew "ripgrep"
 brew "tailwindcss-language-server"
 brew "silicon"
 brew "tmux"
+brew "tree-sitter-cli"
 brew "unixodbc"
 brew "glebglazov/tap/pop", args: ["HEAD"]
 brew "joshmedeski/sesh/sesh"
