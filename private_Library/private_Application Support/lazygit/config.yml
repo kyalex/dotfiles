@@ -29,7 +29,8 @@ gui:
       - "#c0caf5"
 
 os:
-  edit: 'nvim --server /tmp/current-neovim-server --remote-send ":e {{filename}}<CR>" 2>/dev/null || nvim {{filename}}'
+  edit: '[ -n "$NVIM" ] && nvim --server "$NVIM" --remote-send ''<C-\><C-n><Cmd>lua vim.api.nvim_win_close(0, true);vim.cmd("edit "..vim.fn.fnameescape({{filename}}))<CR>'' || nvim {{filename}}'
+  editAtLine: '[ -n "$NVIM" ] && nvim --server "$NVIM" --remote-send ''<C-\><C-n><Cmd>lua vim.api.nvim_win_close(0, true);vim.cmd("edit +{{line}} "..vim.fn.fnameescape({{filename}}))<CR>'' || nvim +{{line}} {{filename}}'
 
 promptToReturnFromSubprocess: false
 quitOnTopLevelReturn: true
