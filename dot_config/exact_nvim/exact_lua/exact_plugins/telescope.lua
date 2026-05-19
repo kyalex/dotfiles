@@ -16,7 +16,7 @@ return {
 
     telescope.setup({
       defaults = {
-        file_ignore_patterns = { ".git/", "node_modules/" },
+        file_ignore_patterns = { "/%.git/", "/node_modules/" },
         mappings = {
           i = keybindings,
           n = keybindings,
@@ -50,7 +50,9 @@ return {
     map("n", "<leader> ", builtin.find_files, { desc = "Telescope find files" })
     map("n", "<leader>/", builtin.live_grep, { desc = "Telescope live grep" })
     map("n", "<leader>,", builtin.buffers, { desc = "Telescope buffers" })
-    map("n", "<leader>fr", builtin.oldfiles, { desc = "Telescope Old files" })
+    map("n", "<leader>fr", function()
+      builtin.oldfiles({ only_cwd = true, include_current_session = true })
+    end, { desc = "Telescope Old files" })
     map("n", "<leader>fq", builtin.quickfix, { desc = "Telescope Quickfix list" })
   end,
 }
