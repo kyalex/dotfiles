@@ -1,7 +1,5 @@
 return {
-  cmd = {
-    "mise", "exec", "--", "ruby-lsp"
-  },
+  cmd = { "ruby-lsp-mise" },
   filetypes = { "ruby", "eruby", "slim" },
   init_options = {
     addonSettings = {

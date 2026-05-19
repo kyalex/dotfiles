@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+mise x ruby -- sh -c 'command -v ruby-lsp >/dev/null 2>&1 || gem install ruby-lsp --no-document >&2'
+exec mise x ruby -- ruby-lsp "$@"
