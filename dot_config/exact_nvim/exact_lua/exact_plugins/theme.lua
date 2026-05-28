@@ -1,8 +1,8 @@
 return {
-  "catppuccin/nvim",
-  name = "catppuccin",
+  "navarasu/onedark.nvim",
   lazy = false,
   priority = 1000,
+  opts = {},
   config = function()
     local function ruby_icon(name)
       return {
@@ -24,28 +24,11 @@ return {
       }
     })
 
-    require("catppuccin").setup({
-      background = { light = "latte", dark = "mocha" },
-    })
+    require("onedark").setup {
+      style = "warmer"
+    }
 
-    local function macos_is_dark()
-      local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
-      if not handle then return true end
-      local out = handle:read("*a") or ""
-      handle:close()
-      return out:lower():find("dark") ~= nil
-    end
-
-    local function apply_theme()
-      local dark = macos_is_dark()
-      vim.o.background = dark and "dark" or "light"
-      vim.cmd.colorscheme(dark and "catppuccin-mocha" or "catppuccin-latte")
-    end
-
-    apply_theme()
-
-    vim.api.nvim_create_autocmd({ "FocusGained", "VimResume" }, {
-      callback = apply_theme,
-    })
+    -- load the colorscheme here
+    vim.cmd.colorscheme "onedark"
   end,
 }

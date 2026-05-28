@@ -2,32 +2,31 @@ gui:
   showFileTree: true
   showCommandLog: false
   nerdFontsVersion: "3"
-  # Catppuccin Mocha
   theme:
     activeBorderColor:
-      - "#fab387"
+      - "#ff9e64"
       - "bold"
     inactiveBorderColor:
-      - "#6c7086"
+      - "#27a1b9"
     searchingActiveBorderColor:
-      - "#f9e2af"
+      - "#ff9e64"
       - "bold"
     optionsTextColor:
-      - "#89b4fa"
+      - "#7aa2f7"
     selectedLineBgColor:
-      - "#313244"
+      - "#283457"
     cherryPickedCommitFgColor:
-      - "#89b4fa"
+      - "#7aa2f7"
     cherryPickedCommitBgColor:
-      - "#cba6f7"
+      - "#bb9af7"
     markedBaseCommitFgColor:
-      - "#89b4fa"
+      - "#7aa2f7"
     markedBaseCommitBgColor:
-      - "#f9e2af"
+      - "#e0af68"
     unstagedChangesColor:
-      - "#f38ba8"
+      - "#db4b4b"
     defaultFgColor:
-      - "#cdd6f4"
+      - "#c0caf5"
 
 os:
   edit: '[ -n "$NVIM" ] && nvim --server "$NVIM" --remote-send ''<C-\><C-n><Cmd>lua vim.api.nvim_win_close(0, true);vim.cmd("edit "..vim.fn.fnameescape({{filename}}))<CR>'' || nvim {{filename}}'
