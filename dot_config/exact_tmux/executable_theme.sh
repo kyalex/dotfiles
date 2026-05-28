@@ -4,9 +4,11 @@
 # (status-interval) because it's invoked from a #(...) in status-left.
 
 if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -qi dark; then
-  bg=#282c34 fg=#abb2bf accent=#61afef green=#98c379 yellow=#e5c07b inactive=#5c6370 border=#3e4451
+  # Catppuccin Mocha
+  bg=#1e1e2e fg=#cdd6f4 accent=#89b4fa green=#a6e3a1 yellow=#f9e2af inactive=#6c7086 border=#313244
 else
-  bg=#eeeeee fg=#383a42 accent=#4078f2 green=#50a14f yellow=#c18401 inactive=#a0a1a7 border=#e5e5e6
+  # Catppuccin Latte
+  bg=#eff1f5 fg=#4c4f69 accent=#1e66f5 green=#40a02b yellow=#df8e1d inactive=#9ca0b0 border=#ccd0da
 fi
 
 tmux set-environment -g STATUS_BG       "$bg"

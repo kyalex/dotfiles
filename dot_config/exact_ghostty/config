@@ -1,7 +1,7 @@
 initial-command = /bin/zsh -l -i -c "tmux new-session -A -s main"
 command         = /bin/zsh -l -i -c "tmux new-session -A -s main"
 
-theme = light:Atom One Light,dark:Atom One Dark
+theme = light:Catppuccin Latte,dark:Catppuccin Mocha
 
 confirm-close-surface   = false
 mouse-hide-while-typing = true

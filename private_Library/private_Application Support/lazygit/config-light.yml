@@ -1,26 +1,27 @@
 gui:
+  # Catppuccin Latte
   theme:
     activeBorderColor:
-      - "#b15c00"
+      - "#fe640b"
       - "bold"
     inactiveBorderColor:
-      - "#4094a3"
+      - "#6c6f85"
     searchingActiveBorderColor:
-      - "#b15c00"
+      - "#df8e1d"
       - "bold"
     optionsTextColor:
-      - "#2e7de9"
+      - "#1e66f5"
     selectedLineBgColor:
-      - "#b7c1e3"
+      - "#ccd0da"
     cherryPickedCommitFgColor:
-      - "#2e7de9"
+      - "#1e66f5"
     cherryPickedCommitBgColor:
-      - "#9854f1"
+      - "#8839ef"
     markedBaseCommitFgColor:
-      - "#2e7de9"
+      - "#1e66f5"
     markedBaseCommitBgColor:
-      - "#8c6c3e"
+      - "#df8e1d"
     unstagedChangesColor:
-      - "#c64343"
+      - "#d20f39"
     defaultFgColor:
-      - "#3760bf"
+      - "#4c4f69"
