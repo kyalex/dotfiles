@@ -2,11 +2,13 @@
 # Detect macOS appearance and publish theme colors as tmux global env vars.
 # Referenced from tmux.conf via #{E:STATUS_*}. Re-runs on each status redraw
 # (status-interval) because it's invoked from a #(...) in status-left.
+# Colors are injected by chezmoi from the active theme preset.
+{{- $p := index .presets .theme.preset }}
 
 if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -qi dark; then
-  bg=#282c34 fg=#abb2bf accent=#61afef green=#98c379 yellow=#e5c07b inactive=#5c6370 border=#3e4451
+  bg={{$p.dark.bg}} fg={{$p.dark.fg}} accent={{$p.dark.accent}} green={{$p.dark.green}} yellow={{$p.dark.yellow}} inactive={{$p.dark.inactive}} border={{$p.dark.border}}
 else
-  bg=#eeeeee fg=#383a42 accent=#4078f2 green=#50a14f yellow=#c18401 inactive=#a0a1a7 border=#e5e5e6
+  bg={{$p.light.bg}} fg={{$p.light.fg}} accent={{$p.light.accent}} green={{$p.light.green}} yellow={{$p.light.yellow}} inactive={{$p.light.inactive}} border={{$p.light.border}}
 fi
 
 tmux set-environment -g STATUS_BG       "$bg"

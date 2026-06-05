@@ -1,0 +1,100 @@
+theme:
+  preset: onedark
+
+presets:
+  onedark:
+    ghostty: { dark: "Atom One Dark", light: "Atom One Light" }
+    delta: { dark: "OneHalfDark", light: "OneHalfLight" }
+    nvim: { plugin: "navarasu/onedark.nvim", colorscheme: "onedark" }
+    dark:
+      bg: "#282c34"
+      fg: "#abb2bf"
+      accent: "#61afef"
+      blue: "#61afef"
+      green: "#98c379"
+      yellow: "#e5c07b"
+      orange: "#d19a66"
+      red: "#e06c75"
+      magenta: "#c678dd"
+      cyan: "#56b6c2"
+      inactive: "#5c6370"
+      border: "#3e4451"
+      selection: "#3e4451"
+    light:
+      bg: "#eeeeee"
+      fg: "#383a42"
+      accent: "#4078f2"
+      blue: "#4078f2"
+      green: "#50a14f"
+      yellow: "#c18401"
+      orange: "#986801"
+      red: "#e45649"
+      magenta: "#a626a4"
+      cyan: "#0184bc"
+      inactive: "#a0a1a7"
+      border: "#e5e5e6"
+      selection: "#d4d4d4"
+  gruvbox:
+    ghostty: { dark: "Gruvbox Dark", light: "Gruvbox Light" }
+    delta: { dark: "gruvbox-dark", light: "gruvbox-light" }
+    nvim: { plugin: "ellisonleao/gruvbox.nvim", colorscheme: "gruvbox" }
+    dark:
+      bg: "#282828"
+      fg: "#ebdbb2"
+      accent: "#83a598"
+      blue: "#83a598"
+      green: "#b8bb26"
+      yellow: "#fabd2f"
+      orange: "#fe8019"
+      red: "#fb4934"
+      magenta: "#d3869b"
+      cyan: "#8ec07c"
+      inactive: "#928374"
+      border: "#504945"
+      selection: "#504945"
+    light:
+      bg: "#fbf1c7"
+      fg: "#3c3836"
+      accent: "#076678"
+      blue: "#076678"
+      green: "#79740e"
+      yellow: "#b57614"
+      orange: "#af3a03"
+      red: "#9d0006"
+      magenta: "#8f3f71"
+      cyan: "#427b58"
+      inactive: "#928374"
+      border: "#d5c4a1"
+      selection: "#d5c4a1"
+  catppuccin:
+    ghostty: { dark: "Catppuccin Mocha", light: "Catppuccin Latte" }
+    delta: { dark: "Catppuccin Mocha", light: "Catppuccin Latte" }
+    nvim: { plugin: "catppuccin/nvim", colorscheme: "catppuccin" }
+    dark:
+      bg: "#1e1e2e"
+      fg: "#cdd6f4"
+      accent: "#89b4fa"
+      blue: "#89b4fa"
+      green: "#a6e3a1"
+      yellow: "#f9e2af"
+      orange: "#fab387"
+      red: "#f38ba8"
+      magenta: "#cba6f7"
+      cyan: "#94e2d5"
+      inactive: "#6c7086"
+      border: "#313244"
+      selection: "#45475a"
+    light:
+      bg: "#eff1f5"
+      fg: "#4c4f69"
+      accent: "#1e66f5"
+      blue: "#1e66f5"
+      green: "#40a02b"
+      yellow: "#df8e1d"
+      orange: "#fe640b"
+      red: "#d20f39"
+      magenta: "#8839ef"
+      cyan: "#179299"
+      inactive: "#9ca0b0"
+      border: "#ccd0da"
+      selection: "#bcc0cc"

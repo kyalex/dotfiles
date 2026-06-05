@@ -1,0 +1,27 @@
+{{- $p := index .presets .theme.preset -}}
+gui:
+  theme:
+    activeBorderColor:
+      - "{{ $p.light.orange }}"
+      - "bold"
+    inactiveBorderColor:
+      - "{{ $p.light.cyan }}"
+    searchingActiveBorderColor:
+      - "{{ $p.light.orange }}"
+      - "bold"
+    optionsTextColor:
+      - "{{ $p.light.blue }}"
+    selectedLineBgColor:
+      - "{{ $p.light.selection }}"
+    cherryPickedCommitFgColor:
+      - "{{ $p.light.blue }}"
+    cherryPickedCommitBgColor:
+      - "{{ $p.light.magenta }}"
+    markedBaseCommitFgColor:
+      - "{{ $p.light.blue }}"
+    markedBaseCommitBgColor:
+      - "{{ $p.light.yellow }}"
+    unstagedChangesColor:
+      - "{{ $p.light.red }}"
+    defaultFgColor:
+      - "{{ $p.light.fg }}"

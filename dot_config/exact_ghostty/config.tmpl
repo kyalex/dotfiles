@@ -1,7 +1,8 @@
+{{- $p := index .presets .theme.preset -}}
 initial-command = /bin/zsh -l -i -c "tmux new-session -A -s main"
 command         = /bin/zsh -l -i -c "tmux new-session -A -s main"
 
-theme = light:Atom One Light,dark:Atom One Dark
+theme = light:{{ $p.ghostty.light }},dark:{{ $p.ghostty.dark }}
 
 confirm-close-surface   = false
 mouse-hide-while-typing = true
