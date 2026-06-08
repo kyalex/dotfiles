@@ -46,6 +46,10 @@ return {
       require("catppuccin").setup({ background = { dark = "mocha", light = "latte" } })
 {{- end }}
       vim.cmd.colorscheme("{{ $p.nvim.colorscheme }}")
+      pcall(function()
+        local ll = require("lualine")
+        ll.setup(ll.get_config())
+      end)
     end
 
     apply()
