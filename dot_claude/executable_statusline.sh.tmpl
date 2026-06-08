@@ -1,0 +1,78 @@
+#!/bin/bash
+# Claude Code status line. Managed by chezmoi (dot_claude/executable_statusline.sh.tmpl).
+# Receives session JSON on stdin; see https://code.claude.com/docs/en/statusline.md
+# Colors are injected by chezmoi from the active theme preset and picked at
+# runtime by macOS appearance (matches dot_config/exact_tmux/theme.sh).
+{{- $p := index .presets .theme.preset }}
+input=$(cat)
+
+MODEL=$(echo "$input" | jq -r '.model.display_name // "?"')
+COST=$(echo "$input" | jq -r '.cost.total_cost_usd // 0')
+PCT=$(echo "$input" | jq -r '.context_window.used_percentage // 0' | cut -d. -f1)
+DURATION_MS=$(echo "$input" | jq -r '.cost.total_duration_ms // 0')
+
+# Theme palette (hex), resolved by current macOS appearance.
+if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -qi dark; then
+  H_ACCENT="{{$p.dark.accent}}"; H_GREEN="{{$p.dark.green}}"; H_YELLOW="{{$p.dark.yellow}}"; H_RED="{{$p.dark.red}}"; H_INACTIVE="{{$p.dark.inactive}}"
+else
+  H_ACCENT="{{$p.light.accent}}"; H_GREEN="{{$p.light.green}}"; H_YELLOW="{{$p.light.yellow}}"; H_RED="{{$p.light.red}}"; H_INACTIVE="{{$p.light.inactive}}"
+fi
+
+# #rrggbb -> truecolor SGR foreground escape (real ESC byte, no -e needed).
+hex_fg() { local h=${1#\#}; printf '\033[38;2;%d;%d;%dm' "$((16#${h:0:2}))" "$((16#${h:2:2}))" "$((16#${h:4:2}))"; }
+
+ACCENT=$(hex_fg "$H_ACCENT"); GREEN=$(hex_fg "$H_GREEN"); YELLOW=$(hex_fg "$H_YELLOW"); RED=$(hex_fg "$H_RED"); DIM=$(hex_fg "$H_INACTIVE")
+RESET=$(printf '\033[0m')
+
+# Context bar colour: green < 70%, yellow < 90%, red above.
+if [ "$PCT" -ge 90 ]; then BAR_COLOR="$RED"
+elif [ "$PCT" -ge 70 ]; then BAR_COLOR="$YELLOW"
+else BAR_COLOR="$GREEN"; fi
+
+FILLED=$((PCT / 10)); EMPTY=$((10 - FILLED))
+printf -v FILL "%${FILLED}s"; printf -v PAD "%${EMPTY}s"
+BAR="${FILL// /█}${PAD// /░}"
+
+MINS=$((DURATION_MS / 60000)); SECS=$(((DURATION_MS % 60000) / 1000))
+
+COST_FMT=$(printf '$%.2f' "$COST")
+
+# Usage limits (Claude.ai Pro/Max only; absent otherwise). 5-hour + weekly windows.
+NOW=$(date +%s)
+
+# Colour by usage: green < 70%, yellow < 90%, red above.
+usage_color() {
+  if [ "$1" -ge 90 ]; then printf '%s' "$RED"
+  elif [ "$1" -ge 70 ]; then printf '%s' "$YELLOW"
+  else printf '%s' "$GREEN"; fi
+}
+
+# Compact "resets in" from an epoch timestamp: 2h, 45m, 3d.
+reset_in() {
+  local diff=$(( $1 - NOW ))
+  [ "$diff" -le 0 ] && { printf 'now'; return; }
+  if [ "$diff" -ge 86400 ]; then printf '%dd' $(( diff / 86400 ))
+  elif [ "$diff" -ge 3600 ]; then printf '%dh' $(( diff / 3600 ))
+  else printf '%dm' $(( diff / 60 )); fi
+}
+
+USAGE=""
+FIVE_H=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty' | cut -d. -f1)
+FIVE_H_RESET=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
+if [ -n "$FIVE_H" ]; then
+  USAGE="$(usage_color "$FIVE_H")5h: ${FIVE_H}%${RESET}"
+  [ -n "$FIVE_H_RESET" ] && USAGE="$USAGE ${DIM}($(reset_in "$FIVE_H_RESET"))${RESET}"
+fi
+
+WEEK=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty' | cut -d. -f1)
+WEEK_RESET=$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at // empty')
+if [ -n "$WEEK" ]; then
+  [ -n "$USAGE" ] && USAGE="$USAGE ${DIM}|${RESET} "
+  USAGE="$USAGE$(usage_color "$WEEK")Week: ${WEEK}%${RESET}"
+  [ -n "$WEEK_RESET" ] && USAGE="$USAGE ${DIM}($(reset_in "$WEEK_RESET"))${RESET}"
+fi
+
+FIRST="${ACCENT}$MODEL${RESET}"
+[ -n "$USAGE" ] && FIRST="$FIRST ${DIM}|${RESET} $USAGE"
+echo -e "$FIRST"
+echo -e "${BAR_COLOR}${BAR}${RESET} ${PCT}% ctx ${DIM}|${RESET} ${YELLOW}${COST_FMT}${RESET} ${DIM}|${RESET} Duration: ${MINS}m ${SECS}s"
