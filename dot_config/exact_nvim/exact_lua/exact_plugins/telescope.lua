@@ -16,6 +16,17 @@ return {
 
     telescope.setup({
       defaults = {
+        vimgrep_arguments = {
+          "rg",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          "--hidden",          -- search hidden files/folders (e.g. .github)
+          "--glob=!**/.git/*", -- but don't descend into .git
+        },
         file_ignore_patterns = { "/%.git/", "/node_modules/" },
         mappings = {
           i = keybindings,
@@ -23,6 +34,15 @@ return {
         },
       },
       pickers = {
+        find_files = {
+          hidden = true,
+          find_command = {
+            "rg",
+            "--files",
+            "--hidden",
+            "--glob=!**/.git/*",
+          },
+        },
         buffers = {
           mappings = {
             n = {

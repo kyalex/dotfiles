@@ -1,5 +1,3 @@
--- Open Neotree on startup
-
 -- Highlight text on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()

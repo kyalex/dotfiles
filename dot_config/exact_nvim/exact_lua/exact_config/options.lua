@@ -3,7 +3,7 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Suppress messagesin command line
+-- Suppress messages in command line
 -- W: "written" message
 -- I: Startup info messages
 -- c and C: completion messages
