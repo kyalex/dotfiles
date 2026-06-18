@@ -59,6 +59,7 @@
   },
   "tui": "fullscreen",
   "theme": "auto",
+  "effortLevel": "xhigh",
   "skipAutoPermissionPrompt": true,
   "skipDangerousModePermissionPrompt": true,
   "voiceEnabled": true,
