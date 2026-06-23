@@ -4,3 +4,6 @@ projects = [
   { path = "~/projects/*", display_depth = 2 },
   { path = "~/.local/share/chezmoi" },
 ]
+
+[dashboard]
+zoom_on_switch = false
