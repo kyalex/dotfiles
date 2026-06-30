@@ -4,6 +4,7 @@ vim.lsp.enable({
   "ts_ls",
   "eslint",
   "lua_ls",
+  "rust_analyzer",
   "zls",
   "tailwindcss"
 })

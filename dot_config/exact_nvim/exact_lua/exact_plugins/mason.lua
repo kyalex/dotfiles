@@ -6,6 +6,7 @@ return {
       "ts_ls",
       "eslint",
       "lua_ls",
+      "rust_analyzer",
       "zls",
       "tailwindcss"
     },
