@@ -5,3 +5,4 @@ mise.toml
 **/.claude/settings.local.json
 CLAUDE.local.md
 .playwright-mcp/
+.venv/
