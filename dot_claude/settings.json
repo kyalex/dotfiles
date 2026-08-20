@@ -1,11 +1,18 @@
 {
+  "effortLevel": "xhigh",
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true,
+    "ruby-lsp@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": false
+  },
   "hooks": {
     "Notification": [
       {
         "hooks": [
           {
-            "type": "command",
-            "command": "pop pane set-status unread 2>/dev/null || true"
+            "command": "pop pane set-status unread 2>/dev/null || true",
+            "type": "command"
           }
         ]
       }
@@ -14,8 +21,8 @@
       {
         "hooks": [
           {
-            "type": "command",
-            "command": "pop pane set-status working 2>/dev/null || true"
+            "command": "pop pane set-status working 2>/dev/null || true",
+            "type": "command"
           }
         ]
       }
@@ -24,8 +31,16 @@
       {
         "hooks": [
           {
-            "type": "command",
-            "command": "pop pane set-status idle 2>/dev/null || true"
+            "command": "pop pane set-status clear 2>/dev/null || true",
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "pop pane set-topic --clear 2>/dev/null || true",
+            "type": "command"
           }
         ]
       }
@@ -34,8 +49,8 @@
       {
         "hooks": [
           {
-            "type": "command",
-            "command": "pop pane set-status unread 2>/dev/null || true"
+            "command": "pop pane set-status unread 2>/dev/null || true",
+            "type": "command"
           }
         ]
       }
@@ -44,29 +59,31 @@
       {
         "hooks": [
           {
-            "type": "command",
-            "command": "pop pane set-status working 2>/dev/null || true"
+            "command": "pop pane set-status working 2>/dev/null || true",
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "pop pane set-topic --derive 2>/dev/null || true",
+            "type": "command"
           }
         ]
       }
     ]
   },
-  "enabledPlugins": {
-    "lua-lsp@claude-plugins-official": true,
-    "ruby-lsp@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": false,
-    "frontend-design@claude-plugins-official": true
-  },
-  "tui": "fullscreen",
-  "theme": "auto",
-  "effortLevel": "xhigh",
+  "model": "claude-fable-5[1m]",
   "skipAutoPermissionPrompt": true,
   "skipDangerousModePermissionPrompt": true,
-  "voiceEnabled": true,
   "skipWorkflowUsageWarning": true,
   "statusLine": {
-    "type": "command",
     "command": "~/.claude/statusline.sh",
-    "padding": 0
-  }
+    "padding": 0,
+    "type": "command"
+  },
+  "theme": "auto",
+  "tui": "fullscreen",
+  "voiceEnabled": true
 }
