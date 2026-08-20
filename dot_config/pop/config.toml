@@ -5,5 +5,8 @@ projects = [
   { path = "~/.local/share/chezmoi" },
 ]
 
+[project]
+session_ordering = "live-first"
+
 [dashboard]
 zoom_on_switch = false
