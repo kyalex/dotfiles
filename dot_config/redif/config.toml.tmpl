@@ -1,0 +1,5 @@
+{{- if eq .profile "alpha" -}}
+agent = "claude --dangerously-skip-permissions -p --output-format stream-json --verbose"
+{{- else -}}
+agent = "opencode run --auto --print-logs"
+{{- end }}

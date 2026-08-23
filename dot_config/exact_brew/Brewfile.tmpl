@@ -1,7 +1,5 @@
-tap "anomalyco/tap"
 tap "glebglazov/tap"
 tap "jesseduffield/lazygit"
-tap "joshmedeski/sesh"
 tap "ngrok/ngrok"
 brew "awscli"
 brew "chezmoi"
@@ -11,11 +9,8 @@ brew "fd"
 brew "fzf"
 brew "gh"
 brew "git-delta"
-brew "git-lfs"
 brew "htop"
 brew "hyperfine"
-brew "imagemagick"
-brew "lazydocker"
 brew "lazygit"
 brew "libiodbc"
 brew "libyaml"
@@ -32,12 +27,9 @@ brew "tmux"
 brew "tree-sitter-cli"
 brew "unixodbc"
 brew "glebglazov/tap/pop", args: ["HEAD"]
-brew "joshmedeski/sesh/sesh"
 cask "1password"
 cask "1password-cli"
-cask "affinity"
 cask "alacritty"
-cask "arduino-ide"
 cask "claude"
 cask "claude-code"
 cask "font-hack-nerd-font"
@@ -47,9 +39,18 @@ cask "love"
 cask "miro"
 cask "ngrok"
 cask "obsidian"
+brew "opencode"
 cask "orbstack"
 cask "raycast"
 cask "slack"
 cask "spotify"
 cask "telegram"
 cask "zed"
+
+# alpha
+{{- if eq .profile "alpha" }}
+{{- end }}
+
+# bravo
+{{- if eq .profile "bravo" }}
+{{- end }}

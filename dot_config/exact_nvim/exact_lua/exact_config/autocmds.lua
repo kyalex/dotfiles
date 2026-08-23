@@ -27,6 +27,13 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- Brewfile chezmoi template
+vim.filetype.add({
+  filename = {
+    ["Brewfile.tmpl"] = "ruby",
+  },
+})
+
 -- Helm
 vim.filetype.add({
   extension = {
