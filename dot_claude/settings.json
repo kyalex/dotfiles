@@ -8,6 +8,28 @@
     "superpowers@claude-plugins-official": false
   },
   "hooks": {
+    "Elicitation": [
+      {
+        "hooks": [
+          {
+            "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "ElicitationResult": [
+      {
+        "hooks": [
+          {
+            "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ],
     "Notification": [
       {
         "hooks": [
@@ -18,11 +40,54 @@
         ]
       }
     ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "hooks": [
           {
             "command": "pop pane set-status working 2>/dev/null || true",
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "AskUserQuestion|ExitPlanMode"
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
+            "timeout": 5,
             "type": "command"
           }
         ]
@@ -44,6 +109,15 @@
             "type": "command"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
       }
     ],
     "Stop": [
@@ -51,6 +125,26 @@
         "hooks": [
           {
             "command": "pop pane set-status unread 2>/dev/null || true",
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
+            "timeout": 5,
             "type": "command"
           }
         ]
@@ -69,6 +163,15 @@
         "hooks": [
           {
             "command": "pop pane set-topic --derive 2>/dev/null || true",
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
+            "timeout": 5,
             "type": "command"
           }
         ]

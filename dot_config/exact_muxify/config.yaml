@@ -1,0 +1,27 @@
+# Managed by chezmoi: edit ~/.local/share/chezmoi/dot_config/exact_muxify/config.yaml
+
+# Project discovery, the same roots as pop's `projects`
+sessions:
+  paths:
+    - path: ~/work
+      depth: 1
+    - path: ~/personal
+      depth: 1
+    - path: ~/projects
+      depth: 1
+    - path: ~/.local/share/chezmoi
+
+command_palettes:
+  - name: Go to…
+    keybinding: cmd+p
+    sources: [topics, sessions]
+  - name: Commands
+    keybinding: cmd+shift+p
+    sources: [commands]
+  - name: Agents
+    keybinding: cmd+shift+o
+    sources: [agents]
+
+keybindings:
+  select_prev_session: cmd+left_bracket
+  select_next_session: cmd+right_bracket
