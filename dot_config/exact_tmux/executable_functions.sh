@@ -43,5 +43,28 @@ maximize_pane() {
   fi
 }
 
+# Muxify draws its own window list, so hide the status line for the session a
+# Muxify client shows. Detected by walking the client's parent processes up to
+# the app; control-mode clients (Muxify's event feed) are ignored.
+muxify_status() {
+  client_tty=$1
+
+  info=$(tmux list-clients -f "#{==:#{client_tty},$client_tty}" -F '#{client_control_mode} #{client_pid} #{session_id}')
+  [ -n "$info" ] || return 0
+  read -r control pid session <<EOF
+$info
+EOF
+  [ "$control" = 1 ] && return
+
+  while [ "${pid:-1}" -gt 1 ]; do
+    case "$(ps -o comm= -p "$pid")" in
+      */MuxifyApp) tmux set -t "$session" status off; return ;;
+    esac
+    pid=$(ps -o ppid= -p "$pid" | tr -d ' ')
+  done
+  tmux set -u -t "$session" status
+}
+
 [ "$1" = "toggle_mouse" ] && toggle_mouse
 [ "$1" = "maximize_pane" ] && maximize_pane
+[ "$1" = "muxify_status" ] && muxify_status "$2"
