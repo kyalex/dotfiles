@@ -11,6 +11,11 @@ sessions:
       depth: 1
     - path: ~/.local/share/chezmoi
 
+# 5 In Play places: the Topics you're working on. Other open Topics wait on
+# the Bench; Pinned Topics and Guests don't count toward the 5
+topics:
+  in_play: 5
+
 command_palettes:
   - name: Go to…
     keybinding: cmd+p
