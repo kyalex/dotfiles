@@ -1,20 +1,13 @@
 {
-  "autoMemoryEnabled": false,
-  "effortLevel": "xhigh",
-  "enabledPlugins": {
-    "frontend-design@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true,
-    "ruby-lsp@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": false
-  },
+  "model": "claude-opus-5-5",
   "hooks": {
     "Elicitation": [
       {
         "hooks": [
           {
+            "type": "command",
             "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5,
-            "type": "command"
+            "timeout": 5
           }
         ]
       }
@@ -23,9 +16,9 @@
       {
         "hooks": [
           {
+            "type": "command",
             "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5,
-            "type": "command"
+            "timeout": 5
           }
         ]
       }
@@ -34,8 +27,8 @@
       {
         "hooks": [
           {
-            "command": "pop pane set-status unread 2>/dev/null || true",
-            "type": "command"
+            "type": "command",
+            "command": "pop pane set-status unread 2>/dev/null || true"
           }
         ]
       }
@@ -44,9 +37,9 @@
       {
         "hooks": [
           {
+            "type": "command",
             "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5,
-            "type": "command"
+            "timeout": 5
           }
         ]
       }
@@ -55,9 +48,9 @@
       {
         "hooks": [
           {
+            "type": "command",
             "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5,
-            "type": "command"
+            "timeout": 5
           }
         ]
       }
@@ -66,29 +59,29 @@
       {
         "hooks": [
           {
-            "command": "pop pane set-status working 2>/dev/null || true",
-            "type": "command"
+            "type": "command",
+            "command": "pop pane set-status working 2>/dev/null || true"
           }
         ]
       },
       {
+        "matcher": "AskUserQuestion|ExitPlanMode",
         "hooks": [
           {
+            "type": "command",
             "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5,
-            "type": "command"
+            "timeout": 5
           }
-        ],
-        "matcher": "AskUserQuestion|ExitPlanMode"
+        ]
       }
     ],
     "SessionEnd": [
       {
         "hooks": [
           {
+            "type": "command",
             "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5,
-            "type": "command"
+            "timeout": 5
           }
         ]
       }
@@ -97,25 +90,25 @@
       {
         "hooks": [
           {
-            "command": "pop pane set-status clear 2>/dev/null || true",
-            "type": "command"
+            "type": "command",
+            "command": "pop pane set-status clear 2>/dev/null || true"
           }
         ]
       },
       {
         "hooks": [
           {
-            "command": "pop pane set-topic --clear 2>/dev/null || true",
-            "type": "command"
+            "type": "command",
+            "command": "pop pane set-topic --clear 2>/dev/null || true"
           }
         ]
       },
       {
         "hooks": [
           {
+            "type": "command",
             "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5,
-            "type": "command"
+            "timeout": 5
           }
         ]
       }
@@ -124,17 +117,17 @@
       {
         "hooks": [
           {
-            "command": "pop pane set-status unread 2>/dev/null || true",
-            "type": "command"
+            "type": "command",
+            "command": "pop pane set-status unread 2>/dev/null || true"
           }
         ]
       },
       {
         "hooks": [
           {
+            "type": "command",
             "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5,
-            "type": "command"
+            "timeout": 5
           }
         ]
       }
@@ -143,9 +136,9 @@
       {
         "hooks": [
           {
+            "type": "command",
             "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5,
-            "type": "command"
+            "timeout": 5
           }
         ]
       }
@@ -154,31 +147,51 @@
       {
         "hooks": [
           {
-            "command": "pop pane set-status working 2>/dev/null || true",
-            "type": "command"
+            "type": "command",
+            "command": "pop pane set-status working 2>/dev/null || true"
           }
         ]
       },
       {
         "hooks": [
           {
-            "command": "pop pane set-topic --derive 2>/dev/null || true",
-            "type": "command"
+            "type": "command",
+            "command": "pop pane set-topic --derive 2>/dev/null || true"
           }
         ]
       },
       {
         "hooks": [
           {
+            "type": "command",
             "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5,
-            "type": "command"
+            "timeout": 5
           }
         ]
       }
     ]
   },
-  "model": "claude-opus-5-5",
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true,
+    "ruby-lsp@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": false,
+    "cook@cook": true
+  },
+  "extraKnownMarketplaces": {
+    "cook": {
+      "source": {
+        "source": "github",
+        "repo": "ykaratkou/cook"
+      }
+    }
+  },
+  "effortLevel": "xhigh",
   "modelSettings": {
     "claude-fable-5-1": {
       "effortLevel": "xhigh"
@@ -193,15 +206,11 @@
       "effortLevel": "xhigh"
     }
   },
-  "skipAutoPermissionPrompt": true,
+  "tui": "fullscreen",
+  "autoMemoryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
   "skipWorkflowUsageWarning": true,
-  "statusLine": {
-    "command": "~/.claude/statusline.sh",
-    "padding": 0,
-    "type": "command"
-  },
   "theme": "auto",
-  "tui": "fullscreen",
+  "skipAutoPermissionPrompt": true,
   "voiceEnabled": true
 }
