@@ -25,6 +25,9 @@ command_palettes:
 keybindings:
   select_prev_session: cmd+left_bracket
   select_next_session: cmd+right_bracket
+  # cmd+brackets above take these from their defaults (Browser Focus only)
+  browser_back: cmd+alt+left
+  browser_forward: cmd+alt+right
 
 # Logs freezes, CPU and errors to ~/Library/Logs/Muxify
 diagnostics:
