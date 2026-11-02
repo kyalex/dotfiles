@@ -25,3 +25,7 @@ command_palettes:
 keybindings:
   select_prev_session: cmd+left_bracket
   select_next_session: cmd+right_bracket
+
+# Logs freezes, CPU and errors to ~/Library/Logs/Muxify
+diagnostics:
+  enabled: true
