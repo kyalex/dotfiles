@@ -23,10 +23,10 @@ command_palettes:
     sources: [agents]
 
 keybindings:
-  select_prev_session: cmd+left_bracket
-  select_next_session: cmd+right_bracket
-  select_prev_topic: cmd+shift+left_bracket
-  select_next_topic: cmd+shift+right_bracket
+  select_prev_topic: cmd+left_bracket
+  select_next_topic: cmd+right_bracket
+  select_prev_session: cmd+shift+left_bracket
+  select_next_session: cmd+shift+right_bracket
   # cmd+brackets above take these from their defaults (Browser Focus only)
   browser_back: cmd+alt+left
   browser_forward: cmd+alt+right
