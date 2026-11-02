@@ -6,3 +6,4 @@ mise.toml
 CLAUDE.local.md
 .playwright-mcp/
 .venv/
+.cook/
