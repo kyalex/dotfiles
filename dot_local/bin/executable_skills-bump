@@ -1,0 +1,141 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Move the skills pin file to an upstream release.
+# Needs only git, curl and jq (plus chezmoi to find the default pin file).
+
+usage() {
+    printf '%s\n' \
+        'Usage: skills-bump [--file <pin-file>] [<tag>]' \
+        '' \
+        'Move every skill source in the pin file to an upstream release.' \
+        '' \
+        '  <tag>              Release tag to pin. Default: the highest v* release tag' \
+        '                     upstream (v1.2.3 form, compared as versions).' \
+        '  --file <pin-file>  Pin file to rewrite. Default: .chezmoidata/skills.json' \
+        "                     in chezmoi's source directory." \
+        '  -h, --help         Print this help.' \
+        '' \
+        'For each source it resolves the commit the tag points to, reads the skills' \
+        'listed in .claude-plugin/plugin.json at that commit, and prints the old and' \
+        'new tag with the names of the skills added and removed.' \
+        '' \
+        'skills-bump only rewrites the pin file. It never commits and never runs' \
+        '`chezmoi apply`: review the diff, commit it, and apply yourself. On any' \
+        'failure it exits non-zero and leaves the pin file untouched.'
+}
+
+die() {
+    printf 'skills-bump: %s\n' "$*" >&2
+    exit 1
+}
+
+file=""
+tag=""
+while [ $# -gt 0 ]; do
+    case "$1" in
+        -h | --help)
+            usage
+            exit 0
+            ;;
+        --file)
+            [ $# -ge 2 ] || die "--file needs a path (see --help)"
+            file=$2
+            shift 2
+            ;;
+        --file=*)
+            file=${1#--file=}
+            shift
+            ;;
+        -*)
+            die "unknown option $1 (see --help)"
+            ;;
+        *)
+            [ -z "$tag" ] || die "more than one tag given: $tag and $1 (see --help)"
+            tag=$1
+            shift
+            ;;
+    esac
+done
+
+for tool in git curl jq; do
+    command -v "$tool" > /dev/null || die "$tool is not installed"
+done
+
+if [ -z "$file" ]; then
+    source_dir=$(chezmoi source-path) || die "cannot find chezmoi's source directory; pass --file"
+    file=$source_dir/.chezmoidata/skills.json
+fi
+
+[ -f "$file" ] || die "no pin file at $file"
+[ -w "$file" ] || die "cannot write $file"
+doc=$(jq . "$file") || die "$file is not valid JSON"
+sources=$(jq -r '.skillSources | keys_unsorted[]' <<< "$doc" 2> /dev/null) && [ -n "$sources" ] ||
+    die "$file names no skill sources"
+
+# The new pin file is built in $doc and written once, after every source has
+# resolved, so a failure part-way leaves the file as it was.
+report=""
+while IFS= read -r source <&3; do
+    repo=$(jq -r --arg s "$source" '.skillSources[$s].repo? // empty | strings' <<< "$doc")
+    [ -n "$repo" ] || die "$file: source $source has no repo"
+    url=https://github.com/$repo.git
+
+    refs=$(GIT_TERMINAL_PROMPT=0 git ls-remote --tags "$url") || die "$source: cannot reach upstream $url"
+
+    # An annotated tag is listed twice: the tag object, then "<tag>^{}" carrying
+    # the commit it points to. A lightweight tag is listed once, with the commit.
+    target=$(jq -Rrn --arg want "$tag" '
+        [inputs | split("\t") | {sha: .[0], tag: (.[1] // "" | ltrimstr("refs/tags/"))}]
+        | (map(select(.tag | endswith("^{}")) | {key: (.tag | rtrimstr("^{}")), value: .sha}) | from_entries) as $peeled
+        | map(select(.tag | endswith("^{}") | not) | {tag, sha: ($peeled[.tag] // .sha)})
+        | if $want != "" then map(select(.tag == $want))
+          else map(select(.tag | test("^v[0-9]+(\\.[0-9]+)*$")))
+              | sort_by(.tag | ltrimstr("v") | split(".") | map(tonumber))
+              | .[-1:]
+          end
+        | .[] | "\(.tag) \(.sha)"
+    ' <<< "$refs")
+    if [ -z "$target" ]; then
+        [ -z "$tag" ] || die "$source: tag $tag does not exist in $url"
+        die "$source: no v* release tag in $url"
+    fi
+    read -r ref sha <<< "$target"
+
+    manifest_url=https://raw.githubusercontent.com/$repo/$sha/.claude-plugin/plugin.json
+    response=$(curl -sSL -w '\n%{http_code}' "$manifest_url") || die "$source: cannot reach upstream $manifest_url"
+    status=${response##*$'\n'}
+    case "$status" in
+        200) ;;
+        404) die "$source: no manifest at $ref: $manifest_url is missing" ;;
+        *) die "$source: upstream answered HTTP $status for $manifest_url" ;;
+    esac
+
+    skills=$(jq -c '
+        [.skills[]? | strings | ltrimstr("./") | {name: (split("/") | last // ""), path: .}] | sort_by(.name)
+    ' <<< "${response%$'\n'*}") || die "$source: manifest at $ref is not a JSON object: $manifest_url"
+    problem=$(jq -r '
+        if length == 0 then "lists no skills"
+        elif any(.[]; .name == "") then "has a skill path with no name"
+        else group_by(.name) | map(select(length > 1) | "\(.[0].name) (\(map(.path) | join(", ")))")
+            | select(length > 0) | "has skills sharing a name: " + join("; ")
+        end
+    ' <<< "$skills")
+    [ -z "$problem" ] || die "$source: manifest at $ref $problem: $manifest_url"
+
+    report+=$(jq -r --arg s "$source" --arg ref "$ref" --arg sha "$sha" --argjson skills "$skills" '
+        def list: if length == 0 then "(none)" else join(", ") end;
+        .skillSources[$s] as $old
+        | [$old.skills[]?.name] as $before
+        | ($skills | map(.name)) as $after
+        | "\($s): \($old.ref // "(none)") -> \($ref) (\($sha))",
+          "  added: \($after - $before | list)",
+          "  removed: \($before - $after | list)"
+    ' <<< "$doc")$'\n'
+    doc=$(jq --arg s "$source" --arg ref "$ref" --arg sha "$sha" --argjson skills "$skills" '
+        .skillSources[$s] += {ref: $ref, sha: $sha, skills: $skills}
+    ' <<< "$doc")
+done 3<<< "$sources"
+
+printf '%s\n' "$doc" > "$file" || die "cannot write $file"
+printf '%s' "$report"
