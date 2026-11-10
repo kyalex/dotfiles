@@ -1,0 +1,8 @@
+# ~/.claude/skills is an exact directory. These entries belong to other
+# programs, so chezmoi must neither remove nor change them.
+
+# Symlinks created by pop.
+.claude/skills/pop-*
+
+# Claude Code's claude.ai skill sync.
+.claude/skills/synced
