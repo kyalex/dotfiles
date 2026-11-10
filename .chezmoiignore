@@ -1,3 +1,6 @@
+# Documentation for this repository, not a dotfile.
+README.md
+
 # ~/.claude/skills is an exact directory. These entries belong to other
 # programs, so chezmoi must neither remove nor change them.
 
