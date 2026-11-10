@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Install the cook plugin into Codex with Codex's own plugin commands.
+#
+# chezmoi runs this script after it has written files, and only when the
+# rendered script changes. The rendered script differs with and without codex
+# on PATH, so it runs again on the first apply after codex is installed. A
+# failed run is not recorded, so chezmoi retries it on the next apply.
+#
+# Both commands exit 0 when cook is already installed. Codex records the result
+# in ~/.codex/config.toml, which holds machine-specific entries and is not
+# tracked here.
+{{ if lookPath "codex" -}}
+codex plugin marketplace add ykaratkou/cook
+codex plugin add cook@cook
+{{- else -}}
+# codex is not on PATH: nothing to do.
+{{- end }}
