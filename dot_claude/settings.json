@@ -1,13 +1,29 @@
 {
-  "model": "fable",
+  "autoMemoryEnabled": false,
+  "effortLevel": "xhigh",
+  "enabledPlugins": {
+    "cook@cook": true,
+    "frontend-design@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true,
+    "ruby-lsp@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": false
+  },
+  "extraKnownMarketplaces": {
+    "cook": {
+      "source": {
+        "repo": "ykaratkou/cook",
+        "source": "github"
+      }
+    }
+  },
   "hooks": {
     "Elicitation": [
       {
         "hooks": [
           {
-            "type": "command",
             "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5
+            "timeout": 5,
+            "type": "command"
           }
         ]
       }
@@ -16,9 +32,9 @@
       {
         "hooks": [
           {
-            "type": "command",
             "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5
+            "timeout": 5,
+            "type": "command"
           }
         ]
       }
@@ -27,8 +43,8 @@
       {
         "hooks": [
           {
-            "type": "command",
-            "command": "pop pane set-status unread 2>/dev/null || true"
+            "command": "pop pane set-status unread 2>/dev/null || true",
+            "type": "command"
           }
         ]
       }
@@ -37,9 +53,9 @@
       {
         "hooks": [
           {
-            "type": "command",
             "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5
+            "timeout": 5,
+            "type": "command"
           }
         ]
       }
@@ -48,9 +64,9 @@
       {
         "hooks": [
           {
-            "type": "command",
             "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5
+            "timeout": 5,
+            "type": "command"
           }
         ]
       }
@@ -59,18 +75,18 @@
       {
         "hooks": [
           {
-            "type": "command",
-            "command": "pop pane set-status working 2>/dev/null || true"
+            "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
+            "timeout": 5,
+            "type": "command"
           }
-        ]
+        ],
+        "matcher": "AskUserQuestion|ExitPlanMode"
       },
       {
-        "matcher": "AskUserQuestion|ExitPlanMode",
         "hooks": [
           {
-            "type": "command",
-            "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5
+            "command": "pop pane set-status working 2>/dev/null || true",
+            "type": "command"
           }
         ]
       }
@@ -79,9 +95,9 @@
       {
         "hooks": [
           {
-            "type": "command",
             "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5
+            "timeout": 5,
+            "type": "command"
           }
         ]
       }
@@ -90,25 +106,25 @@
       {
         "hooks": [
           {
-            "type": "command",
-            "command": "pop pane set-status clear 2>/dev/null || true"
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "pop pane set-topic --clear 2>/dev/null || true"
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
             "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "pop pane set-status clear 2>/dev/null || true",
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "pop pane set-topic --clear 2>/dev/null || true",
+            "type": "command"
           }
         ]
       }
@@ -117,17 +133,17 @@
       {
         "hooks": [
           {
-            "type": "command",
-            "command": "pop pane set-status unread 2>/dev/null || true"
+            "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
+            "timeout": 5,
+            "type": "command"
           }
         ]
       },
       {
         "hooks": [
           {
-            "type": "command",
-            "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5
+            "command": "pop pane set-status unread 2>/dev/null || true",
+            "type": "command"
           }
         ]
       }
@@ -136,9 +152,9 @@
       {
         "hooks": [
           {
-            "type": "command",
             "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5
+            "timeout": 5,
+            "type": "command"
           }
         ]
       }
@@ -147,53 +163,36 @@
       {
         "hooks": [
           {
-            "type": "command",
-            "command": "pop pane set-status working 2>/dev/null || true"
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "pop pane set-topic --derive 2>/dev/null || true"
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
             "command": "sh \"$HOME/.claude/hooks/muxify-status.sh\"",
-            "timeout": 5
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "pop pane set-status working 2>/dev/null || true",
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "pop pane set-topic --derive 2>/dev/null || true",
+            "type": "command"
           }
         ]
       }
     ]
   },
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/statusline.sh",
-    "padding": 0
-  },
-  "enabledPlugins": {
-    "frontend-design@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true,
-    "ruby-lsp@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": false,
-    "cook@cook": true
-  },
-  "extraKnownMarketplaces": {
-    "cook": {
-      "source": {
-        "source": "github",
-        "repo": "ykaratkou/cook"
-      }
-    }
-  },
-  "effortLevel": "xhigh",
+  "model": "fable",
   "modelSettings": {
     "claude-fable-5-1": {
+      "effortLevel": "xhigh"
+    },
+    "claude-fable-5-2": {
       "effortLevel": "xhigh"
     },
     "claude-haiku-5-5": {
@@ -204,16 +203,17 @@
     },
     "claude-sonnet-5-5": {
       "effortLevel": "xhigh"
-    },
-    "claude-fable-5-2": {
-      "effortLevel": "xhigh"
     }
   },
-  "tui": "fullscreen",
-  "autoMemoryEnabled": false,
+  "skipAutoPermissionPrompt": true,
   "skipDangerousModePermissionPrompt": true,
   "skipWorkflowUsageWarning": true,
+  "statusLine": {
+    "command": "~/.claude/statusline.sh",
+    "padding": 0,
+    "type": "command"
+  },
   "theme": "auto",
-  "skipAutoPermissionPrompt": true,
+  "tui": "fullscreen",
   "voiceEnabled": true
 }

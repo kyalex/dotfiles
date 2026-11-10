@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Restore pop's skills and status wiring for Claude Code and Codex.
+#
+# chezmoi runs this script after it has written files, because pop's installer
+# needs ~/.config/pop/config.toml, and only when the rendered script changes.
+# The rendered script differs with and without pop on PATH, so it runs again on
+# the first apply after pop is installed. A failed run is not recorded, so
+# chezmoi retries it on the next apply.
+#
+# pop rewrites ~/.claude/settings.json. dot_claude/settings.json is kept in the
+# exact form pop writes, so the rewrite changes nothing.
+{{ if lookPath "pop" -}}
+pop integrate claude codex
+{{- else -}}
+# pop is not on PATH: nothing to do.
+{{- end }}
