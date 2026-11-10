@@ -1,0 +1,12 @@
+{{- range $srcName, $src := .skillSources }}
+{{- range $skill := $src.skills }}
+{{- range $root := list ".agents/skills" ".claude/skills" }}
+["{{ $root }}/{{ $skill.name }}"]
+    type = "archive"
+    url = "https://github.com/{{ $src.repo }}/archive/{{ $src.sha }}.tar.gz"
+    include = ["*/{{ $skill.path }}/**"]
+    stripComponents = {{ add 1 (len (splitList "/" $skill.path)) }}
+    exact = true
+{{ end }}
+{{- end }}
+{{- end }}
