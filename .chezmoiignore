@@ -9,3 +9,8 @@ README.md
 
 # Claude Code's claude.ai skill sync.
 .claude/skills/synced
+
+# ~/.config/zed is an exact directory. Zed creates these on every launch: its
+# prompt library database and the user themes folder.
+.config/zed/prompts
+.config/zed/themes

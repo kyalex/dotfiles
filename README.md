@@ -12,17 +12,20 @@ How coding-agent skills for Claude Code and Codex are managed by this chezmoi re
 
 ## Updating the pinned skills
 
-```sh
-skills-bump                          # move the pin to the highest v* release tag
-cd "$(chezmoi source-path)"
-git diff .chezmoidata/skills.json    # review what changed
-git commit -m "skills: bump pin" .chezmoidata/skills.json
-chezmoi apply
-```
+Ask an agent to move the pin, for example "update my skills to the latest release" or "pin my skills to v1.3.1". The steps below are what it, or you, must do. Change only `ref`, `sha` and `skills` in `.chezmoidata/skills.json`, and keep the file's layout: two-space indent, keys in the order they are in now.
 
-To pin a specific release, name its tag: `skills-bump v1.3.1`.
+1. **Pick the tag and its commit.** List the tags with `git ls-remote --tags https://github.com/mattpocock/skills.git`. The latest release is the highest `vX.Y.Z` tag, compared as version numbers, so `v1.10.0` is above `v1.9.0`. An annotated tag is listed twice: use the commit on its `<tag>^{}` line, not the tag object's SHA. Set `ref` to the tag and `sha` to that commit.
+2. **Read the skill list at that commit**, from `https://raw.githubusercontent.com/mattpocock/skills/<sha>/.claude-plugin/plugin.json`. Each string in its `skills` array becomes `{"name": ..., "path": ...}`: `path` is the string without a leading `./`, and `name` is the last segment of the path. Sort them by name.
+3. **Stop on anything unusual.** `.chezmoiexternal.toml.tmpl` writes each name and path into TOML unescaped, and each name becomes an exact folder under `~/.claude/skills` and `~/.agents/skills`. A skill named `..` would make apply empty `~/.claude`. Do not write the pin if a name has anything other than letters, digits, `-` and `_`, if a path has anything other than those, `.` and `/`, if a path has a `.` or `..` segment, or if two skills share a name.
+4. **Report the change**: the old and new tag, and the skills added and removed.
+5. **Review, commit, apply:**
 
-`skills-bump` is deployed to `~/.local/bin` from `dot_local/bin/executable_skills-bump`. It prints the old and new tag and the names of the skills added and removed. It only rewrites the pin file: it never commits and never applies, and on any failure it exits non-zero and leaves the pin file untouched. `skills-bump --help` lists its options.
+   ```sh
+   cd "$(chezmoi source-path)"
+   git diff .chezmoidata/skills.json
+   git commit -m "skills: bump pin" .chezmoidata/skills.json
+   chezmoi apply
+   ```
 
 ## Adding a custom skill
 
