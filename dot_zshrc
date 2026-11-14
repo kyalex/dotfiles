@@ -1,3 +1,21 @@
+# Prompt
+# oh-my-zsh's robbyrussell theme: ➜  folder git:(branch) ✗
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git:*' formats '%b'
+zstyle ':vcs_info:git:*' actionformats '%b'
+_prompt_precmd () {
+  vcs_info
+  local vcs=
+  if [[ -n $vcs_info_msg_0_ ]]; then
+    vcs=" %F{blue}git:(%F{red}${vcs_info_msg_0_//\%/%%}%F{blue})"
+    # vcs_info does not see untracked files, which robbyrussell counts as dirty.
+    [[ -n $(git status --porcelain --ignore-submodules=dirty 2>/dev/null) ]] && vcs+=" %F{yellow}✗"
+  fi
+  PROMPT="%B%(?.%F{green}.%F{red})➜  %F{cyan}%1~$vcs%f%b "
+}
+precmd_functions+=(_prompt_precmd)
+
 # Completion
 autoload -Uz compinit && compinit
 setopt auto_menu complete_in_word always_to_end
