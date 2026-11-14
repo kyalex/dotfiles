@@ -45,3 +45,10 @@ lazygit () {
     LG_CONFIG_FILE="$base,$light" command lazygit "$@"
   fi
 }
+
+# Lavish
+# Telemetry off: Lavish otherwise reports usage to its author's analytics server.
+export LAVISH_AXI_TELEMETRY=0
+# No disconnect timeout: WebKit may suspend a page in a background Muxify
+# Window, and without this the agent's poll ends 10 s after the page disconnects.
+export LAVISH_AXI_DISCONNECT_GRACE_MS=off
