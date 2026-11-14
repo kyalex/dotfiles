@@ -1,5 +1,5 @@
 # Prompt
-# oh-my-zsh's robbyrussell theme: ➜  folder git:(branch) ✗
+# robbyrussell style: ➜  folder git:(branch) ✗
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:git:*' formats '%b'
