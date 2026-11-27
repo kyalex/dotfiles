@@ -7,3 +7,4 @@ CLAUDE.local.md
 .playwright-mcp/
 .venv/
 .cook/
+.lavish/
