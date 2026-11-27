@@ -37,8 +37,8 @@ promptToReturnFromSubprocess: false
 quitOnTopLevelReturn: true
 
 git:
-  pagers:
-    - pager: |
+  diffRenderers:
+    - command: |
         delta --syntax-theme "$(
           defaults read -g AppleInterfaceStyle 2>/dev/null \
             | grep -qi dark && echo '{{ $p.delta.dark }}' || echo '{{ $p.delta.light }}'
