@@ -7,15 +7,6 @@ return {
     { "hrsh7th/cmp-nvim-lsp" }, -- LSP source for nvim-cmp
     { "hrsh7th/cmp-cmdline" }, -- Cmdline completions
     { "L3MON4D3/LuaSnip" }, -- Snippets plugin
-    {
-      "zbirenbaum/copilot.lua",
-      opts = true,
-      cmd = "Copilot",
-      build = ":Copilot auth",
-    },
-    {
-      "zbirenbaum/copilot-cmp",
-    },
   },
 }
 

@@ -9,8 +9,6 @@ vim.lsp.enable({
   "tailwindcss"
 })
 
-require("copilot_cmp").setup()
-
 -- CMP
 local cmp = require("cmp")
 
@@ -46,7 +44,6 @@ cmp.setup({
     end,
   },
   sources = {
-    { name = "copilot" },
     { name = "nvim_lsp" },
     { name = "buffer" },
     { name = "path" },
