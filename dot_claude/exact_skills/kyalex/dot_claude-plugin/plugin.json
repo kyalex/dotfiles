@@ -1,0 +1,6 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "kyalex",
+  "version": "0.1.0",
+  "description": "Personal skills, invoked as /kyalex:<skill>."
+}
